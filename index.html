@@ -4,14 +4,150 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soham Ghosh | Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#ffffff;--bg-off:#fafafa;--bg-dark:#0f0f0f;
+      --accent:#d0021b;--accent-dim:#a80016;
+      --text:#0f0f0f;--text-muted:#777;--border:#e8e8e8;
+      --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+      --nav-h:64px;--radius:10px;--tr:0.3s cubic-bezier(.25,.46,.45,.94);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    .container{max-width:1020px;margin:0 auto;padding:0 28px}
+    .accent{color:var(--accent)}
+
+    /* NAV */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1020px;margin:0 auto;height:100%;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-family:var(--font-display);font-weight:800;font-size:1.25rem;color:var(--accent)}
+    .nav-links{display:flex;gap:32px}
+    .nav-links a{font-size:.83rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);transition:color var(--tr)}
+    .nav-links a:hover{color:var(--accent)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--text)}
+    .mobile-menu{display:none;flex-direction:column;background:var(--bg);border-top:1px solid var(--border);padding:14px 28px 18px;gap:14px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:.95rem;font-weight:500;color:var(--text-muted)}
+    .mobile-menu a:hover{color:var(--accent)}
+
+    /* HERO */
+    #hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);overflow:hidden}
+    #hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,#e0e0e0 1px,transparent 1px);background-size:32px 32px;opacity:.55;pointer-events:none}
+    .hero-content{position:relative;z-index:1;max-width:1020px;margin:0 auto;padding:0 28px}
+    .hero-tag{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:5px 14px;border-radius:100px;margin-bottom:28px}
+    .hero-name{font-family:var(--font-display);font-size:clamp(3.5rem,10vw,8rem);font-weight:800;line-height:.92;letter-spacing:-.04em;margin-bottom:28px}
+    .hero-sub{font-size:1rem;color:var(--text-muted);max-width:480px;margin-bottom:44px;line-height:1.8}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{display:inline-block;font-family:var(--font-display);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 28px;border-radius:6px;transition:var(--tr);cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-dim);transform:translateY(-2px);box-shadow:0 8px 24px rgba(208,2,27,.2)}
+    .btn-ghost{border:1.5px solid #ccc;color:var(--text)}
+    .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+    .hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:1;opacity:.3}
+    .hero-scroll span{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase}
+    .scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--text),transparent);animation:scrollLine 1.8s ease-in-out infinite}
+    @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+    /* SECTIONS */
+    section{padding:100px 0}
+    .section-label{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    .section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,2.8rem);font-weight:800;letter-spacing:-.025em;margin-bottom:52px}
+
+    /* ABOUT */
+    #about{background:var(--bg);border-bottom:1px solid var(--border)}
+    .about-grid{display:grid;grid-template-columns:260px 1fr;gap:72px;align-items:start}
+    .about-photo-wrap{position:relative}
+    .photo-placeholder{width:240px;height:300px;border-radius:var(--radius);background:#f0f0f0;border:1px solid var(--border);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+    .photo-placeholder img{width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0}
+    .photo-initials{font-family:var(--font-display);font-size:3rem;font-weight:800;color:var(--accent)}
+    .about-badge{position:absolute;bottom:-14px;right:-14px;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:700;font-size:.74rem;padding:7px 14px;border-radius:6px}
+    .about-text h2{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:20px;line-height:1.2}
+    .about-text p{color:var(--text-muted);margin-bottom:16px;font-size:.97rem}
+    .about-stats{display:flex;gap:36px;margin-top:36px;padding-top:32px;border-top:1px solid var(--border)}
+    .stat-num{font-family:var(--font-display);font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1}
+    .stat-label{font-size:.75rem;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+
+    /* EXPERIENCE */
+    #experience{background:var(--bg-off);border-bottom:1px solid var(--border)}
+    .timeline{position:relative;padding-left:28px}
+    .timeline::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:1px;background:var(--border)}
+    .timeline-item{position:relative;margin-bottom:36px}
+    .timeline-item:last-child{margin-bottom:0}
+    .timeline-marker{position:absolute;left:-34px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+    .timeline-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;transition:border-color var(--tr),box-shadow var(--tr)}
+    .timeline-card:hover{border-color:var(--accent);box-shadow:4px 4px 0 var(--accent)}
+    .timeline-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+    .timeline-role{font-family:var(--font-display);font-weight:700;font-size:1.05rem}
+    .timeline-company{font-size:.85rem;color:var(--accent);margin-top:3px}
+    .timeline-date{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+    .timeline-bullets li{font-size:.93rem;color:var(--text-muted);padding-left:16px;position:relative;margin-bottom:7px}
+    .timeline-bullets li::before{content:'—';position:absolute;left:0;color:var(--accent);font-size:.8rem}
+
+    /* EDUCATION */
+    #education{background:var(--bg);border-bottom:1px solid var(--border)}
+    .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .edu-card{background:var(--bg-off);border:1px solid var(--border);border-radius:var(--radius);padding:32px;display:flex;gap:18px;align-items:flex-start;transition:border-color var(--tr),box-shadow var(--tr)}
+    .edu-card:hover{border-color:var(--accent);box-shadow:4px 4px 0 var(--accent)}
+    .edu-icon{font-size:1.8rem;flex-shrink:0}
+    .edu-school{font-family:var(--font-display);font-weight:700;font-size:.97rem;margin-bottom:4px}
+    .edu-degree{color:var(--accent);font-size:.88rem;margin-bottom:4px}
+    .edu-location{font-size:.75rem;color:var(--text-muted);margin-bottom:10px}
+    .edu-note{font-size:.86rem;color:var(--text-muted);line-height:1.6}
+
+    /* SKILLS */
+    #skills{background:var(--bg-off);border-bottom:1px solid var(--border)}
+    .skills-grid{display:flex;flex-wrap:wrap;gap:12px}
+    .skill-pill{display:flex;align-items:center;gap:9px;background:var(--bg);border:1.5px solid var(--border);border-radius:100px;padding:10px 22px;font-family:var(--font-display);font-weight:600;font-size:.88rem;transition:border-color var(--tr),color var(--tr),box-shadow var(--tr)}
+    .skill-pill:hover{border-color:var(--accent);color:var(--accent);box-shadow:3px 3px 0 var(--accent)}
+    .pill-icon{font-size:1rem}
+
+    /* CONTACT */
+    #contact{background:var(--bg-dark);color:#fff;text-align:center}
+    #contact .section-label{color:var(--accent)}
+    #contact .section-title{color:#fff;margin-bottom:14px}
+    .contact-sub{color:rgba(255,255,255,.45);font-size:.97rem;max-width:460px;margin:0 auto 48px}
+    .contact-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .contact-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:28px 32px;min-width:190px;text-align:center;transition:border-color var(--tr),box-shadow var(--tr)}
+    .contact-card:hover{border-color:var(--accent);box-shadow:4px 4px 0 var(--accent)}
+    .contact-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .contact-card-label{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
+    .contact-card-value{font-family:var(--font-display);font-weight:600;font-size:.9rem;color:#fff}
+
+    /* FOOTER */
+    footer{padding:24px 0;border-top:1px solid rgba(255,255,255,.07);background:var(--bg-dark)}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .footer-logo{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--accent)}
+    .footer-copy{font-size:.8rem;color:rgba(255,255,255,.3)}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .nav-links{display:none}.hamburger{display:flex}
+      #hero{min-height:100svh}
+      .hero-name{font-size:clamp(2.8rem,14vw,4rem)}
+      .about-grid{grid-template-columns:1fr;gap:48px}
+      .photo-placeholder{width:100%;height:280px}
+      .about-badge{right:0}
+      .edu-grid{grid-template-columns:1fr}
+      .timeline{padding-left:20px}.timeline-marker{left:-26px}
+      .timeline-header{flex-direction:column}
+      .contact-cards{flex-direction:column;align-items:center}
+      .contact-card{width:100%;max-width:320px}
+      .footer-inner{justify-content:center;text-align:center}
+      section{padding:80px 0}
+      .about-stats{gap:24px}
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav id="navbar">
     <div class="nav-inner">
       <a class="nav-logo" href="#hero">SG</a>
@@ -33,155 +169,108 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section id="hero">
-    <div class="hero-bg">
-      <div class="grid-overlay"></div>
-      <div class="glow glow-1"></div>
-      <div class="glow glow-2"></div>
-    </div>
     <div class="hero-content">
-      <div class="hero-tag reveal">Electrical & Computer Engineering</div>
-      <h1 class="hero-name reveal delay-1">Soham<br /><span class="accent">Ghosh</span></h1>
-      <p class="hero-sub reveal delay-2">
-        Engineering student, bilingual communicator & emerging tech enthusiast<br />
-        based in Edison, NJ.
-      </p>
-      <div class="hero-cta reveal delay-3">
+      <div class="hero-tag">Electrical &amp; Computer Engineering</div>
+      <h1 class="hero-name">Soham<br /><span class="accent">Ghosh</span></h1>
+      <p class="hero-sub">Engineering student, bilingual communicator &amp; emerging tech enthusiast based in Edison, NJ.</p>
+      <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Get in Touch</a>
         <a href="#experience" class="btn btn-ghost">View Work</a>
       </div>
     </div>
-    <div class="hero-scroll">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
+    <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about">
     <div class="container">
-      <div class="section-label reveal">01 — About</div>
+      <div class="section-label">01 — About</div>
       <div class="about-grid">
-        <div class="about-photo-wrap reveal">
+        <div class="about-photo-wrap">
           <div class="photo-placeholder">
-            <!-- Replace src with your actual photo filename, e.g. src="photo.jpg" -->
-            <img id="profile-img" src="IMG_5724.PNG" alt="Soham Ghosh" onerror="this.style.display='none'" />
-            <div class="photo-initials" style="display:none">SG</div>
+            <img src="IMG_5724.PNG" alt="Soham Ghosh" />
           </div>
           <div class="about-badge">Rutgers '29</div>
         </div>
-        <div class="about-text reveal delay-1">
+        <div class="about-text">
           <h2>Building things that <span class="accent">matter</span>.</h2>
-          <p>
-            I'm Soham Ghosh, an Electrical and Computer Engineering student at Rutgers University,
-            Newark — on track to graduate in 2029. My coursework spans computer science, robotics,
-            and calculus, giving me a solid foundation across both software and hardware domains.
-          </p>
-          <p>
-            Beyond academics, I've gained hands-on experience in logistics and brand promotion,
-            and served as an IT intern during high school. I thrive at the intersection of
-            technology and people — whether I'm troubleshooting systems or representing a brand.
-          </p>
+          <p>I'm Soham Ghosh, an Electrical and Computer Engineering student at Rutgers University — on track to graduate in 2029. My coursework spans computer science, robotics, and calculus, giving me a solid foundation across both software and hardware domains.</p>
+          <p>Beyond academics, I've gained hands-on experience in logistics and brand promotion, and served as an IT intern during high school. I thrive at the intersection of technology and people.</p>
           <div class="about-stats">
-            <div class="stat">
-              <div class="stat-num">2</div>
-              <div class="stat-label">Languages</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">3+</div>
-              <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">90%</div>
-              <div class="stat-label">Satisfaction Rating</div>
-            </div>
+            <div class="stat"><div class="stat-num">2</div><div class="stat-label">Languages</div></div>
+            <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years Exp.</div></div>
+            <div class="stat"><div class="stat-num">90%</div><div class="stat-label">Satisfaction</div></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
   <section id="experience">
     <div class="container">
-      <div class="section-label reveal">02 — Experience</div>
-      <h2 class="section-title reveal">Where I've Worked</h2>
+      <div class="section-label">02 — Experience</div>
+      <h2 class="section-title">Where I've Worked</h2>
       <div class="timeline">
-
-        <div class="timeline-item reveal">
+        <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-card">
             <div class="timeline-header">
-              <div>
-                <div class="timeline-role">Associate</div>
-                <div class="timeline-company">Amazon Warehouse — Avenel, NJ</div>
-              </div>
+              <div><div class="timeline-role">Associate</div><div class="timeline-company">Amazon Warehouse — Avenel, NJ</div></div>
               <div class="timeline-date">Dec 2025 – Present</div>
             </div>
             <ul class="timeline-bullets">
-              <li>Maintained a clean, orderly environment and earned a <strong>90% employee satisfaction rating</strong>.</li>
-              <li>Proficiently managed order picking, fulfillment, inventory, and asset tracking processes.</li>
+              <li>Maintained a clean, orderly environment earning a <strong>90% satisfaction rating</strong>.</li>
+              <li>Managed order picking, fulfillment, inventory, and asset tracking.</li>
             </ul>
           </div>
         </div>
-
-        <div class="timeline-item reveal delay-1">
+        <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-card">
             <div class="timeline-header">
-              <div>
-                <div class="timeline-role">Brand Representative</div>
-                <div class="timeline-company">Positive Impact — New Jersey</div>
-              </div>
+              <div><div class="timeline-role">Brand Representative</div><div class="timeline-company">Positive Impact — New Jersey</div></div>
               <div class="timeline-date">Oct 2024 – Jun 2025</div>
             </div>
             <ul class="timeline-bullets">
-              <li>Developed deep knowledge of product offerings, elevating merchandise enjoyment for customers.</li>
-              <li>Promoted partner brands and expanded their outreach through strategic merchandising.</li>
+              <li>Developed deep product knowledge and elevated customer experience.</li>
+              <li>Promoted partner brands and expanded outreach through strategic merchandising.</li>
             </ul>
           </div>
         </div>
-
-        <div class="timeline-item reveal delay-2">
+        <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-card">
             <div class="timeline-header">
-              <div>
-                <div class="timeline-role">IT Department Intern</div>
-                <div class="timeline-company">John P. Stevens High School — Edison, NJ</div>
-              </div>
+              <div><div class="timeline-role">IT Department Intern</div><div class="timeline-company">John P. Stevens High School — Edison, NJ</div></div>
               <div class="timeline-date">During High School</div>
             </div>
             <ul class="timeline-bullets">
-              <li>Assisted the IT department with technical support, maintenance, and day-to-day operations.</li>
-              <li>Gained foundational experience in technology infrastructure and helpdesk support.</li>
+              <li>Assisted with technical support, maintenance, and daily IT operations.</li>
+              <li>Gained foundational experience in technology infrastructure.</li>
             </ul>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
   <section id="education">
     <div class="container">
-      <div class="section-label reveal">03 — Education</div>
-      <h2 class="section-title reveal">Academic Background</h2>
+      <div class="section-label">03 — Education</div>
+      <h2 class="section-title">Academic Background</h2>
       <div class="edu-grid">
-        <div class="edu-card reveal">
+        <div class="edu-card">
           <div class="edu-icon">🎓</div>
-          <div class="edu-body">
-            <div class="edu-school">Rutgers, The State University of New Jersey</div>
-            <div class="edu-degree">B.S. Electrical & Computer Engineering</div>
+          <div>
+            <div class="edu-school">Rutgers University — Newark</div>
+            <div class="edu-degree">B.S. Electrical &amp; Computer Engineering</div>
             <div class="edu-location">New Brunswick, NJ · Expected May 2029</div>
-            <p class="edu-note">Currently completing courses in Computer Science, Robotics, and Calculus.</p>
+            <p class="edu-note">Computer Science, Robotics, and Calculus coursework.</p>
           </div>
         </div>
-        <div class="edu-card reveal delay-1">
+        <div class="edu-card">
           <div class="edu-icon">📘</div>
-          <div class="edu-body">
+          <div>
             <div class="edu-school">John P. Stevens High School</div>
             <div class="edu-degree">High School Diploma</div>
             <div class="edu-location">Edison, NJ · Graduated June 2025</div>
@@ -192,38 +281,33 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills">
     <div class="container">
-      <div class="section-label reveal">04 — Skills</div>
-      <h2 class="section-title reveal">What I Bring</h2>
+      <div class="section-label">04 — Skills</div>
+      <h2 class="section-title">What I Bring</h2>
       <div class="skills-grid">
-        <div class="skill-pill reveal"><span class="pill-icon">💬</span>Customer Service</div>
-        <div class="skill-pill reveal delay-1"><span class="pill-icon">⏱</span>Time Management</div>
-        <div class="skill-pill reveal delay-2"><span class="pill-icon">🌐</span>Bilingual</div>
-        <div class="skill-pill reveal delay-3"><span class="pill-icon">🤝</span>Leadership</div>
-        <div class="skill-pill reveal delay-1"><span class="pill-icon">🤖</span>Robotics</div>
-        <div class="skill-pill reveal delay-2"><span class="pill-icon">💻</span>Computer Science</div>
-        <div class="skill-pill reveal delay-3"><span class="pill-icon">📦</span>Inventory Management</div>
-        <div class="skill-pill reveal"><span class="pill-icon">🧮</span>Calculus</div>
+        <div class="skill-pill"><span class="pill-icon">💬</span>Customer Service</div>
+        <div class="skill-pill"><span class="pill-icon">⏱</span>Time Management</div>
+        <div class="skill-pill"><span class="pill-icon">🌐</span>Bilingual</div>
+        <div class="skill-pill"><span class="pill-icon">🤝</span>Leadership</div>
+        <div class="skill-pill"><span class="pill-icon">🤖</span>Robotics</div>
+        <div class="skill-pill"><span class="pill-icon">💻</span>Computer Science</div>
+        <div class="skill-pill"><span class="pill-icon">📦</span>Inventory Management</div>
+        <div class="skill-pill"><span class="pill-icon">🧮</span>Calculus</div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="container">
-      <div class="section-label reveal">05 — Contact</div>
-      <h2 class="section-title reveal">Let's Connect</h2>
-      <p class="contact-sub reveal delay-1">
-        I'm always open to new opportunities, collaborations, or just a good conversation.
-        Feel free to reach out!
-      </p>
-      <div class="contact-cards reveal delay-2">
-        <a class="contact-card" href="/cdn-cgi/l/email-protection#422573312d2a232f02252f232b2e6c212d2f">
+      <div class="section-label">05 — Contact</div>
+      <h2 class="section-title">Let's Connect</h2>
+      <p class="contact-sub">I'm always open to new opportunities, collaborations, or just a good conversation.</p>
+      <div class="contact-cards">
+        <a class="contact-card" href="mailto:g1soham@gmail.com">
           <div class="contact-card-icon">✉️</div>
           <div class="contact-card-label">Email</div>
-          <div class="contact-card-value"><span class="__cf_email__" data-cfemail="36510745595e575b76515b575f5a1855595b">[email&#160;protected]</span></div>
+          <div class="contact-card-value">g1soham@gmail.com</div>
         </a>
         <a class="contact-card" href="tel:2017531269">
           <div class="contact-card-icon">📱</div>
@@ -239,8 +323,22 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
       <span class="footer-logo">SG</span>
-      <span class="footer-c
+      <span class="footer-copy">© 2025 Soham Ghosh. Built with Claude AI.</span>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').style.background =
+        window.scrollY > 40 ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.95)';
+    });
+  </script>
+</body>
+</html>
